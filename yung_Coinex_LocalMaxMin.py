@@ -224,11 +224,13 @@ class SwingTradingBot:
             ohlcv_df = ohlcv_df.drop(ohlcv_df.index[-1])
         ohlcv_df['RSI'] = ta.rsi(ohlcv_df['close'],length=15)
 
-        new_columns = pd.DataFrame()
+        #new_columns = pd.DataFrame()
         #EMA
-        for i in range(5,101):
-            new_columns[f'EMA-{i}'] = ta.ema(ohlcv_df['close'], length=i)
-        ohlcv_df = pd.concat([ohlcv_df, new_columns], axis=1)
+        #for i in range(5,101):
+        #    new_columns[f'EMA-{i}'] = ta.ema(ohlcv_df['close'], length=i)
+        #ohlcv_df = pd.concat([ohlcv_df, new_columns], axis=1)
+        ohlcv_df[f'EMA7'] = ta.ema(ohlcv_df['close'], length=7)
+        ohlcv_df[f'EMA20'] = ta.ema(ohlcv_df['close'], length=20)
         
         # ATR
         ohlcv_df['ATR'] = ta.atr(ohlcv_df['high'], ohlcv_df['low'], ohlcv_df['close'])
