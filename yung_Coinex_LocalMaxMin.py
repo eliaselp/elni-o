@@ -43,6 +43,8 @@ class SwingTradingBot:
     def predecir(self, data):
         if str(data)!=self.last_data:
             self.cant_trainings += 1
+            self.last_data = str(data)
+            
             signals = pd.DataFrame(index=data.index)
             signals['signal'] = 'NONE'
 
