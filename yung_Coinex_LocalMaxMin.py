@@ -37,6 +37,7 @@ class SwingTradingBot:
         self.client=RequestsClient(access_id=config.access_id,secret_key=config.secret_key)
 
         self.cant_trainings = 0
+        self.last_patron = None
         self.save_state()
 
 
@@ -65,10 +66,18 @@ class SwingTradingBot:
 
 
             if signals.iloc[-1]['signal'] == 'NONE':
+                self.last_patron = 'LATERALIZACION'
+                self.save_state()
                 return 'LATERALIZACION'
-            return signals.iloc[-1]
+            self.last_patron = signals.iloc[-1]['signal']
+            self.save_state()
+            return signals.iloc[-1]['signal']
         else:
-            return 
+            return self.last_patron == None:
+                self.last_patron = 'LATERALIZACION'
+                self.save_state()
+                return 'LATERALIZACION'
+            return self.last_patron
 
 
     #ESTRATEGIA LISTA
