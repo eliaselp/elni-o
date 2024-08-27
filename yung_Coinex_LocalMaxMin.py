@@ -62,7 +62,7 @@ class SwingTradingBot:
             signals.loc[(data['RSI'] > 40) & (data['RSI'] < 60) & (abs(data['EMA7'] - data['EMA20']) < 0.01 * data['close']) & (data['ATR'] < data['ATR'].shift(1)), 'signal'] = 'LATERALIZACION'
 
 
-            if signals.iloc[-1] == 'NONE':
+            if signals.iloc[-1]['signal'] == 'NONE':
                 return 'LATERALIZACION'
             return signals.iloc[-1]
         else:
