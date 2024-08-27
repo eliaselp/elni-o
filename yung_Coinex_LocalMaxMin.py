@@ -73,7 +73,7 @@ class SwingTradingBot:
             self.save_state()
             return signals.iloc[-1]['signal']
         else:
-            return self.last_patron == None:
+            if self.last_patron == None:
                 self.last_patron = 'LATERALIZACION'
                 self.save_state()
                 return 'LATERALIZACION'
