@@ -16,7 +16,7 @@ incluir_precio_actual=False
 
 
 size=1000
-temporalidad="1hour"
+temporalidad="1min"
 tiempo_espera=3 #segundos
 
 
