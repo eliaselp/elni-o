@@ -46,11 +46,11 @@ class SwingTradingBot:
             self.cant_trainings += 1
             self.last_data = str(data)
 
-            if (data['EMA7'] > data['EMA20']):
+            if (data.iloc[-1]['EMA7'] > data.iloc[-1]['EMA20']) and data.iloc[-1]['RSI'] < 30:
                 self.last_patron = 'LONG'
                 self.save_state()
                 return "LONG"
-            elif (data['EMA7'] < data['EMA20']):
+            elif (data.iloc[-1]['EMA7'] < data.iloc[-1]['EMA20']) and data.iloc[-1]['RSI'] > 70:
                 self.last_patron = 'SHORT'
                 self.save_state()
                 return "SHORT"
