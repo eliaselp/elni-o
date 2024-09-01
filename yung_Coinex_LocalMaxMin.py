@@ -294,16 +294,16 @@ def run_bot():
     # Iniciar el bot
     while True:
         error=False
-        try:
-            print("\nPROCESANDO ANALISIS...")
-            s=bot.trade()
-            clear_console()
-            update_text_code(mensaje=s)
-            print(s)
-        except Exception as e:
-            clear_console()
-            print(f"Error: {str(e)}\n")
-            error=True
+        #try:
+        print("\nPROCESANDO ANALISIS...")
+        s=bot.trade()
+        clear_console()
+        update_text_code(mensaje=s)
+        print(s)
+        #except Exception as e:
+        #    clear_console()
+        #    print(f"Error: {str(e)}\n")
+        #    error=True
         print("Esperando para el próximo análisis...")
         if error:
             tiempo_espera=1
