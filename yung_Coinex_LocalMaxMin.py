@@ -146,6 +146,13 @@ class SwingTradingBot:
         s+=f"[#] OPERACIONES: {self.cant_opr}\n"
         s+=f"[#] GANADAS: {self.cant_win}\n"
         s+=f"[#] PERDIDAS: {self.cant_loss}\n"
+        if data.iloc[-1]['EMA7']>=data.iloc[-1]['EMA20']:
+            s+=f"[#] EMA7: {data.iloc[-1]['EMA7']}\n"
+            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}"
+        else:
+            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}"
+            s+=f"[#] EMA7: {data.iloc[-1]['EMA7']}"
+        s+=f"[#] RSI: {data.iloc[-1]['RSI']}"
         s+="\n--------------------------------------\n"
         if nueva == True and config.ENVIO_MAIL==True:
             enviar_correo(s=s,email=config.email)
