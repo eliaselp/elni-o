@@ -45,7 +45,20 @@ class SwingTradingBot:
         if str(data)!=self.last_data:
             self.cant_trainings += 1
             self.last_data = str(data)
-            
+
+            if (data['EMA7'] > data['EMA20']):
+                self.last_patron = 'LONG'
+                self.save_state()
+                return "LONG"
+            elif (data['EMA7'] < data['EMA20']):
+                self.last_patron = 'SHORT'
+                self.save_state()
+                return "SHORT"
+            else:
+                self.last_patron = 'LATERALIZACION'
+                self.save_state()
+                return "LATERALIZACION"
+                
             signals = pd.DataFrame(index=data.index)
             signals['signal'] = 'NONE'
 
