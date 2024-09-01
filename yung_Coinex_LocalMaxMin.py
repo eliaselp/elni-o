@@ -148,11 +148,11 @@ class SwingTradingBot:
         s+=f"[#] PERDIDAS: {self.cant_loss}\n"
         if data.iloc[-1]['EMA7']>=data.iloc[-1]['EMA20']:
             s+=f"[#] EMA7: {data.iloc[-1]['EMA7']}\n"
-            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}"
+            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}\n"
         else:
-            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}"
-            s+=f"[#] EMA7: {data.iloc[-1]['EMA7']}"
-        s+=f"[#] RSI: {data.iloc[-1]['RSI']}"
+            s+=f"[#] EMA20: {data.iloc[-1]['EMA20']}\n"
+            s+=f"[#] EMA7: {data.iloc[-1]['EMA7']}\n"
+        s+=f"[#] RSI: {data.iloc[-1]['RSI']}\n"
         s+="\n--------------------------------------\n"
         if nueva == True and config.ENVIO_MAIL==True:
             enviar_correo(s=s,email=config.email)
