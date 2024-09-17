@@ -55,26 +55,19 @@ class SwingTradingBot:
                 self.save_state()
                 return "SHORT"
             else:
+                if self.last_patron in ['SHORT', 'LONG']:
+                    if self.last_patron == 'SHORT' and data.iloc[-1]['EMA7'] > data.iloc[-1]['EMA20']:
+                        self.last_patron = 'LATERALIZACION'
+                        self.save_state()
+                        return 'LATERALIZACION'
+                    if self.last_patron == 'LONG' and data.iloc[-1]['EMA7'] < data.iloc[-1]['EMA20']:
+                        self.last_patron = 'LATERALIZACION'
+                        self.save_state()
+                        return 'LATERALIZACION'
+                    return self.last_patron
                 self.last_patron = 'LATERALIZACION'
                 self.save_state()
                 return "LATERALIZACION"
-                
-            signals = pd.DataFrame(index=data.index)
-            signals['signal'] = 'NONE'
-
-            # Señales de apertura de posición long
-            signals.loc[(data['RSI'] < 30) & (data['EMA7'] > data['EMA20'])] = 'LONG'
-
-            # Señales de apertura de posición short
-            signals.loc[(data['RSI'] > 70) & (data['EMA7'] < data['EMA20'])] = 'SHORT'
-
-            if signals.iloc[-1]['signal'] == 'NONE':
-                self.last_patron = 'LATERALIZACION'
-                self.save_state()
-                return 'LATERALIZACION'
-            self.last_patron = signals.iloc[-1]['signal']
-            self.save_state()
-            return signals.iloc[-1]['signal']
         else:
             if self.last_patron == None:
                 self.last_patron = 'LATERALIZACION'
