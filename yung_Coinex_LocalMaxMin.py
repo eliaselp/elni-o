@@ -63,20 +63,10 @@ class SwingTradingBot:
             signals['signal'] = 'NONE'
 
             # Señales de apertura de posición long
-            signals.loc[(data['RSI'] < 30) & (data['EMA7'] > data['EMA20']) & (data['ATR'] > data['ATR'].shift(1)), 'signal'] = 'LONG'
+            signals.loc[(data['RSI'] < 30) & (data['EMA7'] > data['EMA20'])] = 'LONG'
 
             # Señales de apertura de posición short
-            signals.loc[(data['RSI'] > 70) & (data['EMA7'] < data['EMA20']) & (data['ATR'] > data['ATR'].shift(1)), 'signal'] = 'SHORT'
-
-            # Señales de cierre de posición long
-            signals.loc[(data['RSI'] > 70) & (data['EMA7'] < data['EMA20']) & (data['ATR'] < data['ATR'].shift(1)), 'signal'] = 'CLOSE_LONG'
-
-            # Señales de cierre de posición short
-            signals.loc[(data['RSI'] < 30) & (data['EMA7'] > data['EMA20']) & (data['ATR'] < data['ATR'].shift(1)), 'signal'] = 'CLOSE_SHORT'
-
-            # Señales de lateralización
-            signals.loc[(data['RSI'] > 40) & (data['RSI'] < 60) & (abs(data['EMA7'] - data['EMA20']) < 0.01 * data['close']) & (data['ATR'] < data['ATR'].shift(1)), 'signal'] = 'LATERALIZACION'
-
+            signals.loc[(data['RSI'] > 70) & (data['EMA7'] < data['EMA20'])] = 'SHORT'
 
             if signals.iloc[-1]['signal'] == 'NONE':
                 self.last_patron = 'LATERALIZACION'
