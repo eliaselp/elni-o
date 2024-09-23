@@ -1,4 +1,0 @@
-numpy
-pandas
-pandas_ta
-requests
