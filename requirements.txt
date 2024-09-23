@@ -1,0 +1,6 @@
+pandas
+pandas_ta
+tensorflow
+scikit-learn
+keras-tuner
+dill
