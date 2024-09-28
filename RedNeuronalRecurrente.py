@@ -8,23 +8,10 @@ from keras_tuner import RandomSearch
 from keras.optimizers import SGD
 
 import config
-def build_model2(hp):
-    model = Sequential()
-    model.add(Input(shape=(config.time_step, 104)))
-    # Reducir el número de capas LSTM y unidades
-    for i in range(hp.Int('num_layers', 1, 1)):  # Solo una capa LSTM
-        model.add(LSTM(units=hp.Int('units_' + str(i), min_value=50, max_value=100, step=50), return_sequences=False))
-        model.add(Dropout(hp.Float('dropout_' + str(i), min_value=0.1, max_value=0.2, step=0.1)))  # Reducir el dropout máximo a 0.2
-    # Eliminar capas adicionales para reducir la complejidad
-    model.add(Dense(25, activation='relu'))  # Reducir a 10 neuronas
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error')
-    return model
-    
 def build_model(hp):
     model = Sequential()
     model.add(Input(shape=(config.time_step, 104)))
-    for i in range(hp.Int('num_layers', 1, 3)):
+    for i in range(hp.Int('num_layers', 1, 1)):
         model.add(LSTM(units=hp.Int('units_' + str(i), min_value=50, max_value=200, step=50), return_sequences=True))
         model.add(Dropout(hp.Float('dropout_' + str(i), min_value=0.1, max_value=0.5, step=0.1)))
     model.add(LSTM(units=hp.Int('units_final', min_value=50, max_value=200, step=50), return_sequences=False))
@@ -38,7 +25,7 @@ def build_model(hp):
 
 class RNN():
     def __init__(self):
-        self.tuner = RandomSearch(build_model2, objective='val_loss', max_trials=5, executions_per_trial=3)
+        self.tuner = RandomSearch(build_model, objective='val_loss', max_trials=5, executions_per_trial=3)
         
 
     def train2(self, X_train, y_train, X_val, y_val):
