@@ -13,10 +13,12 @@ from correo import enviar_correo
 from monitor import update_text_code,post_action
 import config
 
-# from IPython.display import clear_output
+from IPython.display import clear_output
 
 
 def clear_console():
+    clear_output()
+    return
     os_system = platform.system()
     if os_system == 'Windows':
         os.system('cls')
